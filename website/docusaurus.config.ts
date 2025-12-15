@@ -179,17 +179,17 @@ export default async function createConfigAsync() {
       experimental_faster: isSlower
         ? false
         : {
-            // Verbose object: easier to independently test single attributes
-            swcJsLoader: true,
-            swcJsMinimizer: true,
-            swcHtmlMinimizer: true,
-            lightningCssMinimizer: true,
-            mdxCrossCompilerCache: true,
-            rspackBundler: true,
-            rspackPersistentCache: true,
-            ssgWorkerThreads: true,
-            gitEagerVcs: true,
-          },
+          // Verbose object: easier to independently test single attributes
+          swcJsLoader: true,
+          swcJsMinimizer: true,
+          swcHtmlMinimizer: true,
+          lightningCssMinimizer: true,
+          mdxCrossCompilerCache: true,
+          rspackBundler: true,
+          rspackPersistentCache: true,
+          ssgWorkerThreads: true,
+          gitEagerVcs: true,
+        },
       experimental_storage: {
         namespace: true,
       },
@@ -220,11 +220,11 @@ export default async function createConfigAsync() {
       locales:
         isDeployPreview || isBranchDeploy
           ? // Deploy preview and branch deploys: keep them fast!
-            [defaultLocale]
+          [defaultLocale]
           : isI18nStaging
-          ? // Staging locales: https://docusaurus-i18n-staging.netlify.app/
+            ? // Staging locales: https://docusaurus-i18n-staging.netlify.app/
             [defaultLocale, 'ja']
-          : // Production locales
+            : // Production locales
             [defaultLocale, 'fr', 'pt-BR', 'ko', 'zh-CN'],
     },
     markdown: {
@@ -594,14 +594,14 @@ export default async function createConfigAsync() {
           },
           gtag: !(isDeployPreview || isBranchDeploy)
             ? {
-                trackingID: ['G-E5CR2Q1NRE'],
-              }
+              trackingID: ['G-E5CR2Q1NRE'],
+            }
             : undefined,
           sitemap: {
             ignorePatterns: isArgosBuild
               ? undefined
               : // Note: /tests/docs already has noIndex: true
-                ['/tests/{blog,pages}/**'],
+              ['/tests/{blog,pages}/**'],
             lastmod: showLastUpdate ? 'date' : null,
             priority: null,
             changefreq: null,
@@ -626,7 +626,7 @@ export default async function createConfigAsync() {
         },
       },
       colorMode: {
-        defaultMode: 'light',
+        defaultMode: 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
@@ -675,21 +675,21 @@ export default async function createConfigAsync() {
         // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require
         ...(require('@docsearch/react').version.startsWith('4.')
           ? {
-              askAi: {
-                // cSpell:ignore IMYF
-                assistantId: 'RgIMYFUmTfrN',
-                indexName: 'docusaurus-markdown',
-                suggestedQuestions: true,
-              },
-            }
+            askAi: {
+              // cSpell:ignore IMYF
+              assistantId: 'RgIMYFUmTfrN',
+              indexName: 'docusaurus-markdown',
+              suggestedQuestions: true,
+            },
+          }
           : {}),
 
         replaceSearchResultPathname:
           isDev || isDeployPreview
             ? {
-                from: /^\/docs\/next/g.source,
-                to: '/docs',
-              }
+              from: /^\/docs\/next/g.source,
+              to: '/docs',
+            }
             : undefined,
       },
       navbar: {
@@ -703,93 +703,42 @@ export default async function createConfigAsync() {
           height: 32,
         },
         items: [
+          { type: 'doc', docId: 'intro', label: '首页', position: 'left' },
           {
-            type: 'doc',
-            position: 'left',
-            docId: 'introduction',
-            label: 'Docs',
+            type: 'docSidebar',
+            sidebarId: 'javaSidebar',
+            label: 'Java基础教程',
+            position: 'left'
           },
           {
             type: 'docSidebar',
-            position: 'left',
-            sidebarId: 'api',
-            label: 'API',
-          },
-          {to: 'blog', label: 'Blog', position: 'left'},
-          {to: 'showcase', label: 'Showcase', position: 'left'},
-          {
-            to: '/community/support',
-            label: 'Community',
-            position: 'left',
-            activeBaseRegex: `/community/`,
-          },
-          // This item links to a draft doc: only displayed in dev
-          {
-            type: 'doc',
-            docId: 'index',
-            label: 'Tests',
-            docsPluginId: 'docs-tests',
-          },
-          isDev && {to: '/__docusaurus/debug', label: 'Debug'},
-          // Custom item for dogfooding: only displayed in /tests/ routes
-          {
-            type: 'custom-dogfood-navbar-item',
-            content: '😉',
-          },
-          // Right
-          {
-            type: 'docsVersionDropdown',
-            position: 'right',
-            dropdownActiveClassDisabled: true,
-            dropdownItemsAfter: [
-              {
-                type: 'html',
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: 'html',
-                className: 'dropdown-archived-versions',
-                value: '<b>Archived versions</b>',
-              },
-              ...ArchivedVersionsDropdownItems.map(
-                ([versionName, versionUrl]) => ({
-                  label: versionName,
-                  href: versionUrl,
-                }),
-              ),
-              {
-                href: 'https://v1.docusaurus.io',
-                label: '1.x.x',
-              },
-              {
-                type: 'html',
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                to: '/versions',
-                label: 'All versions',
-              },
-            ],
+            sidebarId: 'midlewareSidebar',
+            label: '常用中间件',
+            position: 'left'
           },
           {
-            type: 'localeDropdown',
-            position: 'right',
-            dropdownItemsAfter: [
-              {
-                type: 'html',
-                value: '<hr style="margin: 0.3rem 0;">',
-              },
-              {
-                href: 'https://github.com/facebook/docusaurus/issues/3526',
-                label: 'Help Us Translate',
-              },
-            ],
+            type: 'docSidebar',
+            sidebarId: 'springbootSidebar',
+            label: 'Spring Boot教程',
+            position: 'left'
           },
           {
-            href: 'https://github.com/facebook/docusaurus',
-            position: 'right',
-            className: 'header-github-link',
-            'aria-label': 'GitHub repository',
+            type: 'docSidebar',
+            sidebarId: 'linuxSidebar',
+            label: 'Linux教程',
+            position: 'left'
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'projectSidebar',
+            label: '企业级项目实战',
+            position: 'left'
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'interviewSidebar',
+            label: '面试专题',
+            position: 'left'
           },
         ]
           // TODO fix type
